@@ -1,4 +1,5 @@
 import 'package:chalie_youthon/unfinished.dart';
+import 'package:chalie_youthon/views/screens/discover_screen.dart';
 import 'package:chalie_youthon/views/theme.dart';
 import 'package:chalie_youthon/views/widgets/current_challenge.dart';
 import 'package:chalie_youthon/views/widgets/discover.dart';
@@ -88,24 +89,30 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildDiscoverIntro(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _intro(context, "Khám phá"),
-        Container(
-          child: Text(
-            'Xem thêm',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w500,
-              fontFamily: 'Inter',
-              color: Colors.black.withOpacity(0.5),
+    return GestureDetector(
+      onTap: () => {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => DiscoverScreen()))
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          _intro(context, "Khám phá"),
+          Container(
+            child: Text(
+              'Xem thêm',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'Inter',
+                color: Colors.black.withOpacity(0.5),
+              ),
             ),
+            margin: EdgeInsets.only(right: 25),
           ),
-          margin: EdgeInsets.only(right: 25),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

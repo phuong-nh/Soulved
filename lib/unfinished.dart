@@ -55,10 +55,10 @@ List<Challenge> testChallenges() {
   var test = Challenge(
     name: 'Học yêu bản thân cùng Chalie',
     description:
-        ' Nhu cầu chăm sóc sức khoẻ của các thanh thiếu niên hiện nay vẫn chưa được xem như là sự ưu tiên đặc biệt trong cuộc sống. Điều này là dễ hiểu bởi đơn giản nhu cầu sống của giới trẻ khá đa dạng và yêu cầu dành nhiều thời gian cho công việc hơn là sức khoẻ. Vậy tại bạn lại phải đánh mất bản thân giữa bộn bề đó? Challenge “Học yêu bản thân cùng Chalie” chính là chiếc công tắc của chế độ nghỉ ngơi mỗi ngày của bạn, giúp bạn tìm lại chính bản thân mình. Đến với các thử thách này, bạn sẽ hiểu rõ hơn về sự quan trọng của sức khỏe, tìm thấy mục tiêu sống của bản thân và ngoài ra  bạn sẽ thấy bản thân mình tốt hơn, đặc biệt là cơ thể, sức khoẻ và tinh thần sẽ thay đổi một cách rõ rệt.',
+        'Nhu cầu chăm sóc sức khoẻ của các thanh thiếu niên hiện nay vẫn chưa được xem như là sự ưu tiên đặc biệt trong cuộc sống. Điều này là dễ hiểu bởi đơn giản nhu cầu sống của giới trẻ khá đa dạng và yêu cầu dành nhiều thời gian cho công việc hơn là sức khoẻ. Vậy tại bạn lại phải đánh mất bản thân giữa bộn bề đó? Challenge “Học yêu bản thân cùng Chalie” chính là chiếc công tắc của chế độ nghỉ ngơi mỗi ngày của bạn, giúp bạn tìm lại chính bản thân mình. Đến với các thử thách này, bạn sẽ hiểu rõ hơn về sự quan trọng của sức khỏe, tìm thấy mục tiêu sống của bản thân và ngoài ra  bạn sẽ thấy bản thân mình tốt hơn, đặc biệt là cơ thể, sức khoẻ và tinh thần sẽ thay đổi một cách rõ rệt.',
     creator: 'Frontliners',
     length: 7,
-    tags: 'Sức khỏe',
+    tag: 'Sức khỏe',
     challengeID: 'selfhealth',
     rating: 9,
     doing: true,
@@ -92,12 +92,13 @@ List<Challenge> testChallenges() {
   ));
   test.days.add(day);
   day = Day(
-    name: "Ăn uống",
+    name: "Ăn uống 🥗",
     finished: false,
+    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper eu risus ut aliquam. Donec egestas tortor sed erat ornare, vel egestas neque ultricies. Sed quis ante scelerisque, malesuada est sed, volutpat velit."
   );
   day.tasks.add(Task(
     name: 'Nấu ăn',
-    description: 'Tự mình xuống bếp làm bữa ăn thật ngon',
+    description: 'Tự mình xuống bếp làm bữa ăn thật ngon. Ngon tới mức mà bạn không thể cưỡng lại việc ăn, bất chấp toàn bộ công sức giảm béo của bạn, khiến bạn phải chạy xuống bếp để làm thêm một đĩa nữa để ăn đêm =))',
     point: 10,
     finished: false,
   ));

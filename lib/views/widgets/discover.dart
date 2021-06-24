@@ -1,4 +1,5 @@
 import 'package:chalie_youthon/models/challenge.dart';
+import 'package:chalie_youthon/views/screens/new_challenge_screen.dart';
 import 'package:chalie_youthon/views/widgets/current_challenge.dart';
 import 'package:flutter/material.dart';
 import '../../unfinished.dart';
@@ -32,48 +33,54 @@ class _DiscoverState extends State<Discover> {
   }
 
   Widget _card(Challenge chal) {
-    return Container(
-      margin: EdgeInsets.only(bottom: 10, left: 10),
-      padding: EdgeInsets.all(15),
-      height: 300,
-      width: 200,
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(borderRadius),
-        image: DecorationImage(
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.6), BlendMode.dstATop),
-            image: NetworkImage(imageLink(chal.image)),
-            fit: BoxFit.cover),
-      ),
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.6,
-            child: Text(
-              chal.name,
+    return GestureDetector(
+      onTap: () {
+        Navigator.of(context).push(
+            MaterialPageRoute(builder: (_) => NewChallenge(challenge: chal)));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 10, left: 10),
+        padding: EdgeInsets.all(15),
+        height: 300,
+        width: 200,
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(borderRadius),
+          image: DecorationImage(
+              colorFilter: ColorFilter.mode(
+                  Colors.black.withOpacity(0.6), BlendMode.dstATop),
+              image: NetworkImage(imageLink(chal.image)),
+              fit: BoxFit.cover),
+        ),
+        child: Column(
+          children: [
+            Container(
+              width: MediaQuery.of(context).size.width * 0.6,
+              child: Text(
+                chal.name,
+                style: TextStyle(
+                    fontSize: 26,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'Inter',
+                    color: Colors.white),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Text(
+              '${chal.finisher} đã tham gia',
               style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.w600,
-                  fontFamily: 'Inter',
-                  color: Colors.white),
+                fontSize: 18,
+                fontFamily: 'Inter',
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.left,
             ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Text(
-            '${chal.finisher} đã tham gia',
-            style: TextStyle(
-              fontSize: 18,
-              fontFamily: 'Inter',
-              color: Colors.white,
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ],
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
+          ],
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
+        ),
       ),
     );
   }

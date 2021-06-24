@@ -5,12 +5,12 @@ class Challenge {
   final List<Day> days = [];
   final String name,
       challengeID,
-      tags,
+      tag,
       creator,
       description,
       image;
   final double rating;
-  final bool doing, finished, saved;
+  bool doing, finished, saved;
   final Color color;
   final int finisher,length,current;
 
@@ -25,7 +25,7 @@ class Challenge {
     this.name = '',
     this.challengeID = '',
     this.length = 0,
-    this.tags = '',
+    this.tag = '',
     this.creator = '',
     this.description = '',
     this.current = -1,
