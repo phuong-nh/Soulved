@@ -1,7 +1,14 @@
+import 'dart:convert';
+
 import 'package:chalie_youthon/models/challenge.dart';
+import 'package:chalie_youthon/models/column_builder.dart';
 import 'package:chalie_youthon/views/screens/new_challenge_screen.dart';
 import 'package:chalie_youthon/views/widgets/current_challenge.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../challenge_provider.dart';
 import '../../unfinished.dart';
 import '../theme.dart';
 
@@ -13,7 +20,14 @@ class Discover extends StatefulWidget {
 }
 
 class _DiscoverState extends State<Discover> {
-  var recommendedChallenges = testChallenges();
+  var recommendedChallenges = <Widget>[];
+
+  @override
+  void didChangeDependencies() {
+    final controller = ChallengeProvider.of(context);
+    for (Challenge challenge in controller.challenges) recommendedChallenges.add(_card(challenge));
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +37,7 @@ class _DiscoverState extends State<Discover> {
       child: Row(
         children: [
           SizedBox(width: 15),
-          _card(recommendedChallenges[0]),
-          _card(recommendedChallenges[0]),
-          _card(recommendedChallenges[0]),
+          ...recommendedChallenges,
           SizedBox(width: 25),
         ],
       ),
@@ -34,7 +46,7 @@ class _DiscoverState extends State<Discover> {
 
   Widget _card(Challenge chal) {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         Navigator.of(context).push(
             MaterialPageRoute(builder: (_) => NewChallenge(challenge: chal)));
       },

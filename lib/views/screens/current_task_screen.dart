@@ -1,7 +1,13 @@
+import 'dart:async';
+
+import 'package:chalie_youthon/challenge_provider.dart';
+import 'package:chalie_youthon/controllers/challenge_controller.dart';
 import 'package:chalie_youthon/models/challenge.dart';
+import 'package:chalie_youthon/models/column_builder.dart';
 import 'package:chalie_youthon/models/task.dart';
 import 'package:chalie_youthon/unfinished.dart';
 import 'package:chalie_youthon/views/screens/congrats_screen.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
@@ -18,6 +24,12 @@ class CurrentTask extends StatefulWidget {
 
 class _CurrentTaskState extends State<CurrentTask> {
   Challenge get challenge => widget.challenge;
+  late Day day;
+
+  @override
+  void initState() {
+    day = challenge.days[challenge.completeCount];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +41,21 @@ class _CurrentTaskState extends State<CurrentTask> {
           color: Colors.black.withOpacity(0.8),
         ),
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (_) => CongratsDay(challenge: challenge)));
+          final controller = ChallengeProvider.of(context);
+          if (day.completeCount == day.tasks.length) {
+            controller.challenges.firstWhere((element) => element.id==challenge.id).days[challenge.completeCount].finished=true;
+            day.finished = true;
+            if (challenge.completeCount == challenge.length) {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => CongratsChallenge(challenge: challenge)));
+              controller.challenges.firstWhere((element) => element.id==challenge.id).doing=false;
+              controller.challenges.firstWhere((element) => element.id==challenge.id).finished=true;
+            } else {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => CongratsDay(challenge: challenge)));
+            }
+          }
+          controller.saveAll();
         },
         backgroundColor: Colors.yellow,
       ),
@@ -42,8 +67,6 @@ class _CurrentTaskState extends State<CurrentTask> {
   }
 
   _dayBuild() {
-    var days = challenge.days;
-    Day day = days[challenge.completeCount];
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -102,9 +125,9 @@ class _CurrentTaskState extends State<CurrentTask> {
           ],
         ),
         SizedBox(height: 10),
-        _taskBuild(day.tasks[0]),
-        _taskBuild(day.tasks[0]),
-        _taskBuild(day.tasks[0]),
+        ColumnBuilder(
+            itemBuilder: (context, index) => _taskBuild(day.tasks[index]),
+            itemCount: day.tasks.length),
         SizedBox(height: 100),
       ],
     );
@@ -185,6 +208,7 @@ class _CurrentTaskState extends State<CurrentTask> {
               Checkbox(
                 value: task.finished,
                 onChanged: (selected) {
+                  final controller = ChallengeProvider.of(context);
                   setState(
                     () {
                       task.finished = (task.finished) ? false : true;

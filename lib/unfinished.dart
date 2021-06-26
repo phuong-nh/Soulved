@@ -1,6 +1,7 @@
 import 'package:chalie_youthon/models/challenge.dart';
 import 'package:chalie_youthon/models/task.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UnfinishedScreen extends StatelessWidget {
   const UnfinishedScreen({Key? key}) : super(key: key);
@@ -59,11 +60,10 @@ List<Challenge> testChallenges() {
     creator: 'Frontliners',
     length: 7,
     tag: 'Sức khỏe',
-    challengeID: 'selfhealth',
+    id: 1,
     rating: 9,
     doing: true,
     image: 'fb7.jpg',
-    color: Colors.yellow.shade600,
     finisher: 1256,
     current: 2,
   );
@@ -92,13 +92,14 @@ List<Challenge> testChallenges() {
   ));
   test.days.add(day);
   day = Day(
-    name: "Ăn uống 🥗",
-    finished: false,
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper eu risus ut aliquam. Donec egestas tortor sed erat ornare, vel egestas neque ultricies. Sed quis ante scelerisque, malesuada est sed, volutpat velit."
-  );
+      name: "Ăn uống 🥗",
+      finished: false,
+      description:
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ullamcorper eu risus ut aliquam. Donec egestas tortor sed erat ornare, vel egestas neque ultricies. Sed quis ante scelerisque, malesuada est sed, volutpat velit.");
   day.tasks.add(Task(
     name: 'Nấu ăn',
-    description: 'Tự mình xuống bếp làm bữa ăn thật ngon. Ngon tới mức mà bạn không thể cưỡng lại việc ăn, bất chấp toàn bộ công sức giảm béo của bạn, khiến bạn phải chạy xuống bếp để làm thêm một đĩa nữa để ăn đêm =))',
+    description:
+        'Tự mình xuống bếp làm bữa ăn thật ngon. Ngon tới mức mà bạn không thể cưỡng lại việc ăn, bất chấp toàn bộ công sức giảm béo của bạn, khiến bạn phải chạy xuống bếp để làm thêm một đĩa nữa để ăn đêm =))',
     point: 10,
     finished: false,
   ));

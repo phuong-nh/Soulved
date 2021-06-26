@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "987406633342",
+    "firebase_url": "https://frontliners-chalie-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "frontliners-chalie",
+    "storage_bucket": "frontliners-chalie.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:987406633342:android:e278d94c87169256320b2f",
+        "android_client_info": {
+          "package_name": "frontliners.youthon.chalie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "987406633342-0qpt0fc7u9akmr5is53jdebtc9jstlci.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnSYFCNl294uF12C-ilo5Ytn_1ghOVaXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "987406633342-0qpt0fc7u9akmr5is53jdebtc9jstlci.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

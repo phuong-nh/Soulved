@@ -2,6 +2,7 @@ import 'package:chalie_youthon/models/challenge.dart';
 import 'package:chalie_youthon/views/screens/new_challenge_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../../challenge_provider.dart';
 import '../../unfinished.dart';
 import '../theme.dart';
 
@@ -20,20 +21,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   List<Challenge> shortChallenge = [];
 
   @override
-  void initState() {
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    healthChallenge.add(test[0]);
-    eduChallenge.add(test[0]);
-    eduChallenge.add(test[0]);
-    shortChallenge.add(test[0]);
-  }
+  void initState() {}
 
   @override
   Widget build(BuildContext context) {
@@ -53,20 +41,33 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
   }
 
   Widget _buildList() {
-    if (select==0) return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: eduChallenge.length,
-      itemBuilder: (context, index) => _card(eduChallenge[index]),
-    );
-    else if (select==1) return ListView.builder(
-      physics: BouncingScrollPhysics(),
-      itemCount: healthChallenge.length,
-      itemBuilder: (context, index) => _card(healthChallenge[index]),
-    );
+    final controller = ChallengeProvider.of(context);
+    if (select == 0)
+      return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: controller.challenges.length,
+        itemBuilder: (context, index) => _card(controller.challenges[index]),
+      );
+    else if (select == 1)
+      return ListView.builder(
+        physics: BouncingScrollPhysics(),
+        itemCount: controller.challenges
+            .where((element) => element.tag == 'Học tập')
+            .toList()
+            .length,
+        itemBuilder: (context, index) => _card(controller.challenges
+            .where((element) => element.tag == 'Học tập')
+            .toList()[index]),
+      );
     return ListView.builder(
       physics: BouncingScrollPhysics(),
-      itemCount: shortChallenge.length,
-      itemBuilder: (context, index) => _card(shortChallenge[index]),
+      itemCount: controller.challenges
+          .where((element) => element.tag == 'Sức khỏe')
+          .toList()
+          .length,
+      itemBuilder: (context, index) => _card(controller.challenges
+          .where((element) => element.tag == 'Sức khỏe')
+          .toList()[index]),
     );
   }
 
@@ -91,7 +92,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
                 child: Text(
-                  'Học tập',
+                  'Tất cả',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -116,7 +117,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
                 child: Text(
-                  'Sức khỏe',
+                  'Học tập',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -141,7 +142,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   borderRadius: BorderRadius.circular(borderRadius),
                 ),
                 child: Text(
-                  'Ngắn hạn',
+                  'Sức khỏe',
                   style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
@@ -174,7 +175,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             MaterialPageRoute(builder: (_) => NewChallenge(challenge: chal)))
       },
       child: Container(
-        margin: EdgeInsets.only(bottom: 10,left: 25,right: 25),
+        margin: EdgeInsets.only(bottom: 10, left: 25, right: 25),
         padding: EdgeInsets.all(15),
         height: 150,
         decoration: BoxDecoration(

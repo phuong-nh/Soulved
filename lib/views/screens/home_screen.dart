@@ -1,4 +1,5 @@
 import 'package:chalie_youthon/unfinished.dart';
+import 'package:chalie_youthon/views/screens/debug_screen.dart';
 import 'package:chalie_youthon/views/screens/discover_screen.dart';
 import 'package:chalie_youthon/views/theme.dart';
 import 'package:chalie_youthon/views/widgets/current_challenge.dart';
@@ -45,7 +46,10 @@ class HomeScreen extends StatelessWidget {
       child: Text(
         'Made by Frontliners',
         style: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.w200, fontFamily: 'Inter'),
+          fontSize: 18,
+          fontWeight: FontWeight.w200,
+          fontFamily: 'Inter',
+        ),
       ),
     );
   }
@@ -57,11 +61,17 @@ class HomeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
-            width: avatarSize,
-            height: avatarSize,
-            decoration:
-                BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => DebugScreen()));
+            },
+            child: Container(
+              width: avatarSize,
+              height: avatarSize,
+              decoration:
+                  BoxDecoration(shape: BoxShape.circle, color: Colors.blue),
+            ),
           ),
           SizedBox(width: 20),
           Column(

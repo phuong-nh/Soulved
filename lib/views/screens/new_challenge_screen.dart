@@ -1,9 +1,11 @@
 import 'package:chalie_youthon/models/challenge.dart';
 import 'package:chalie_youthon/models/column_builder.dart';
 import 'package:chalie_youthon/models/task.dart';
+import 'package:chalie_youthon/views/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../challenge_provider.dart';
 import '../../unfinished.dart';
 import '../theme.dart';
 
@@ -124,9 +126,29 @@ class _NewChallengeState extends State<NewChallenge> {
     );
   }
 
+  String _state() {
+    if (challenge.doing) return "Bạn đang tham gia";
+    if (challenge.finished) return "Bạn đã hoàn thành";
+    return "Tham gia";
+  }
+
   GestureDetector _buildSelect(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        final controller = ChallengeProvider.of(context);
+        if (!controller.challenges
+            .where((element) => element.id == challenge.id)
+            .first
+            .finished)
+          controller.challenges
+              .where((element) => element.id == challenge.id)
+              .first
+              .doing = true;
+        controller.saveAll();
+        setState(() {});
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => HomeScreen()));
+      },
       child: Container(
         margin: EdgeInsets.only(bottom: 25, left: 25, right: 25),
         padding: EdgeInsets.all(15),
@@ -138,7 +160,7 @@ class _NewChallengeState extends State<NewChallenge> {
           borderRadius: BorderRadius.circular(borderRadius),
         ),
         child: Text(
-          'Tham gia',
+          _state(),
           style: TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.w600,
@@ -173,7 +195,8 @@ class _NewChallengeState extends State<NewChallenge> {
                   color: Colors.white,
                 ),
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (_) => HomeScreen()));
                 },
               ),
             ),
@@ -207,13 +230,15 @@ class _NewChallengeState extends State<NewChallenge> {
       ),
       title: Container(
         margin: const EdgeInsets.only(left: 5),
-        child: Text('${day.name}',
+        child: Text(
+          '${day.name}',
           style: TextStyle(
             fontSize: 28,
             fontWeight: FontWeight.w500,
             fontFamily: 'Inter',
             color: Colors.black,
-          ),),
+          ),
+        ),
       ),
     );
   }
